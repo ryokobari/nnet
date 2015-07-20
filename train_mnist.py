@@ -10,5 +10,5 @@ f.close()
 training_data_formatted = zip(training_data[0], training_data[1])
 test_data_formatted = zip(test_data[0], test_data[1])
 
-net = Network([784,100,10])
+net = Network([784,30,10])
 net.train(training_data_formatted,test_data_formatted)
