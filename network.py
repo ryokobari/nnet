@@ -16,9 +16,9 @@ class Network():
     return np.sum((dW2 * self.W2),axis=1) * (1 - H) * X[:,np.newaxis]
 
   def __feedforward(self,X):
-    T = np.sum((X * self.W1.T),axis=1)
+    T = np.dot(X,self.W1)
     H = sigmoid_v(T)
-    U = np.sum((H * self.W2.T),axis=1)
+    U = np.dot(H,self.W2)
     O = sigmoid_v(U)
     return H,O
 
