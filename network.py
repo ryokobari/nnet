@@ -7,13 +7,7 @@ class Network():
     self.sizes = sizes
     self.W1 = np.random.randn(sizes[0],sizes[1])
     self.W2 = np.random.randn(sizes[1],sizes[2])
-    self.alpha = 0.8
-
-  def __delta_w2(self,A,O,H):
-    return (A - O) * O * (1 - O) * H[:,np.newaxis] * self.alpha
-
-  def __delta_w1(self,dW2,H,X):
-    return np.sum((dW2 * self.W2),axis=1) * (1 - H) * X[:,np.newaxis]
+    self.alpha = 0.9
 
   def __feedforward(self,X):
     T = np.dot(X,self.W1)
@@ -23,8 +17,8 @@ class Network():
     return H,O
 
   def __backprop(self,A,O,H,X):
-    dW2 = self.__delta_w2(A,O,H)
-    dW1 = self.__delta_w1(dW2,H,X)
+    dW2 = (A - O) * O * (1 - O) * H[:,np.newaxis] * self.alpha
+    dW1 = np.sum((dW2 * self.W2),axis=1) * (1 - H) * X[:,np.newaxis]
     self.W1 += dW1
     self.W2 += dW2
     
